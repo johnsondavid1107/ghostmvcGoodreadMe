@@ -3,43 +3,24 @@ const inquirer = require('inquirer');
 
 
 const writeFile = (replies) =>
-    `
-    Table of Contents
-    Installation
-    ${replies.install}
+`
+# Table of Contents for ${replies.name}
+## Installation
+${replies.install}
 
-    Usage
-    ${replies.usage}
-    License
-    ${replies.license}
-    Contributions
-    ${replies.contribution}
-    Tests
-    ${replies.test}
-    Questions
-    ${replies.question}
-
-
-    
-    
-    
-    
-    
-    
-    This project was created by ${replies.name}.  
-    They can be contacted by email at ${replies.eMail}.
-    The GitHub Account information is ${replies.gitHub}.
-    Here is a description of this application ${replies.description}.
-    You like these foods! ${replies.food}
-    
-    
-    
-    
-    
-    
-    
-    
-    `;
+## Usage
+${replies.usage}
+Here is a description of this application ${replies.description}.
+## License
+${replies.license}
+## Contributions
+${replies.contribution}
+## Tests
+${replies.test}
+## Questions
+Please reach out to me for any questions answered here: https://github.com/${replies.gitHub},
+or directly here: ${replies.eMail}.
+`;
 
 async function askReadMe() {
 
@@ -74,9 +55,9 @@ async function askReadMe() {
             },
             {
                 type: "list",
-                message: "Which one of these do you like best?",
+                message: "Which license would you like to authenticate your product?",
                 name: "food",
-                choices:["Pizza", "Hamburgers", "Fries"] 
+                choices:["MIT", "Apache 2.0", "GMU"] 
             },
             {
                 type: "input",
@@ -93,6 +74,11 @@ async function askReadMe() {
                 message: "Who currently contributes, and how would you like contributions to be done?",
                 name: "contribution"
             },
+            {
+                type: "input",
+                message: "How does one test this application?",
+                name: "test"
+            },
 
 
         ])
@@ -101,6 +87,7 @@ async function askReadMe() {
         const write = writeFile(askMe);
 
         fs.writeFileSync(`${askMe.name}.md`, write);
+        
 
         console.log(".md is good");
     } catch (err) {
