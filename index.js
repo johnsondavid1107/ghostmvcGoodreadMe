@@ -1,10 +1,21 @@
 const fs = require('fs');
 const inquirer = require('inquirer');
 
+const chosenLicense = [];
+
 
 const writeFile = (replies) =>
-`
+`${chosenLicense}
+
 # Table of Contents for ${replies.name}
+# Installation
+# Usage
+# License
+# Contributions
+# Tests
+# Questions
+
+
 ## Installation
 ${replies.install}
 
@@ -12,7 +23,7 @@ ${replies.install}
 ${replies.usage}
 Here is a description of this application ${replies.description}.
 ## License
-${replies.license}
+This application is covered by the ${replies.license} license.
 ## Contributions
 ${replies.contribution}
 ## Tests
@@ -56,8 +67,8 @@ async function askReadMe() {
             {
                 type: "list",
                 message: "Which license would you like to authenticate your product?",
-                name: "food",
-                choices:["MIT", "Apache 2.0", "GMU"] 
+                name: "license",
+                choices:["MIT", "Apache 2.0", "GNU"] 
             },
             {
                 type: "input",
@@ -83,6 +94,17 @@ async function askReadMe() {
 
         ])
         console.log(askMe);
+
+        if(askMe.license == "MIT") {
+            chosenLicense.push(`[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)`);
+            console.log(chosenLicense);
+        } else if(askMe.license == "Apache 2.0" ){
+            chosenLicense.push(`[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)`)
+            console.log(chosenLicense);
+        } else {
+            chosenLicense.push(`[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)`)
+            console.log(chosenLicense)
+        };
 
         const write = writeFile(askMe);
 
